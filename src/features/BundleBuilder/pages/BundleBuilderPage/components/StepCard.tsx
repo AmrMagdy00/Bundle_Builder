@@ -108,28 +108,6 @@ function StepCard({ item, categoryKey }: StepCardProps) {
   const items = getItemsByCategory(categoryKey);
   const selectedVariants = items.filter((i) => i.productId === product.id);
   const selectedItem = selectedVariants.find((i) => i.quantity > 0);
-  const isSingle = categoryKey === "cameras";
-
-  const handleVariantSelect = (variantId: string) => {
-    const existing = items.find(
-      (i) => i.productId === product.id && i.variantId === variantId,
-    );
-
-    if (existing && existing.quantity > 0) {
-      updateQuantity(product.id, variantId, 0, categoryKey);
-      return;
-    }
-
-    if (isSingle) {
-      selectedVariants.forEach((v) => {
-        if (v.quantity > 0) {
-          updateQuantity(product.id, v.variantId!, 0, categoryKey);
-        }
-      });
-    }
-
-    updateQuantity(product.id, variantId, 1, categoryKey);
-  };
 
   const handleQuantityChange = (delta: number) => {
     if (delta > 0 && !selectedItem && product.variants.length > 0) {
